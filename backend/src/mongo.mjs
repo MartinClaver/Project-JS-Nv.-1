@@ -13,6 +13,14 @@ export async function connectToMongo(dbName, collectionName) {
   }
 }
 
+export function findUserByEmail(collection, email) {
+  console.log(collection.findOne({email}))
+  return collection.findOne({email});
+}
+
+export function insertUser(collection, user) {
+  return collection.insertOne(user);
+}
 
 export function findAllTasks(collection) {
   return collection.find({}).toArray();
@@ -25,19 +33,3 @@ export function postTask(collection, data){
 export function deleteAllTasks(collection) {
   return collection.deleteMany({})
 }
-
-export function main(dbName, collectionName) {
-  connectToMongo(dbName, collectionName)
-    .then(collection => {
-      return findAllTasks(collection);
-    })
-    .then(tasks => {
-      console.log("Tâches trouvées :");
-      console.log(tasks);
-    })
-    .catch(error => {
-      console.error("Une erreur est survenue :", error);
-    });
-}
-
-main("Data", "Data");
